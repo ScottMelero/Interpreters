@@ -1,0 +1,8 @@
+#!/bin/sh
+# $Id: mk-tests,v 1.4 2020-10-07 08:21:52-07 - - $
+[ ! -d tmp ] && mkdir tmp
+for i in *.mbir
+do
+   echo mbir.scm $i
+   mbir.scm $i >tmp/$i.out 2>tmp/$i.err
+done

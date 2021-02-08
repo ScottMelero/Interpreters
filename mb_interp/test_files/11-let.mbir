@@ -1,0 +1,11 @@
+;;Source: mb-programs.d/11-let.mb
+(
+(    1          )
+(    2          )
+(    3          (let i 1))
+(    4          (let j (+ i 3)))
+(    5          (let k (+ (* 8 i) (/ 9 j))))
+(    6          (print "i=" i))
+(    7          (print "j=" j))
+(    8          (print "k=" k))
+)

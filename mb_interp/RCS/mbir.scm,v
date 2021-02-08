@@ -1,0 +1,286 @@
+head	1.6;
+access;
+symbols;
+locks;
+comment	@# @;
+
+
+1.6
+date	2020.10.10.21.16.47;	author -;	state -;
+branches;
+next	1.5;
+
+1.5
+date	2020.10.10.21.16.16;	author -;	state -;
+branches;
+next	1.4;
+
+1.4
+date	2020.10.08.01.32.00;	author -;	state -;
+branches;
+next	1.3;
+
+1.3
+date	2020.10.08.01.30.14;	author -;	state -;
+branches;
+next	1.2;
+
+1.2
+date	2020.09.07.03.23.54;	author -;	state -;
+branches;
+next	1.1;
+
+1.1
+date	2020.09.07.02.54.34;	author -;	state -;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.6
+log
+@-
+@
+text
+@#!/afs/cats.ucsc.edu/courses/cse112-wm/usr/racket/bin/mzscheme -qr
+;; $Id: mbir.scm,v 1.5 2020-10-10 14:16:16-07 - - $
+;;
+;; NAME
+;;    mbir.scm filename.mbir
+;;
+;; SYNOPSIS
+;;    mbir.scm - mini basic interper
+;;
+;; DESCRIPTION
+;;    The file mentioned in argv[1] is read and assumed to be an mbir
+;;    program, which is the executed.  Currently it is only printed.
+;;
+
+(define *DEBUG* #f)
+(define *STDIN* (current-input-port))
+(define *STDOUT* (current-output-port))
+(define *STDERR* (current-error-port))
+(define *ARG-LIST* (vector->list (current-command-line-arguments)))
+
+(define *stmt-table*     (make-hash))
+(define *function-table* (make-hash))
+(define *var-table*      (make-hash))
+(define *array-table*    (make-hash))
+(define *label-table*    (make-hash))
+
+(for-each (lambda (var) (hash-set! *var-table* (car var) (cadr var)))
+   `(
+        (e    ,(exp 1.0))
+        (eof  0.0)
+        (nan  ,(/ 0.0 0.0))
+        (pi   ,(acos -1.0))
+    ))
+
+(define *RUN-FILE*
+    (let-values
+        (((dirname basename dir?)
+            (split-path (find-system-path 'run-file))))
+        (path->string basename)))
+
+(define (die list)
+    (for-each (lambda (item) (fprintf *STDERR* "~a " item)) list)
+    (fprintf *STDERR* "~n")
+    (when (not *DEBUG*) (exit 1)))
+
+(define (dump . args)
+    (when *DEBUG*
+        (printf "DEBUG:")
+        (for-each (lambda (arg) (printf " ~s" arg)) args)
+        (printf "~n")))
+
+(define (usage-exit)
+    (die `("Usage: " ,*RUN-FILE* " [-d] filename")))
+
+(define (line-number line)
+    (car line))
+
+(define (line-label line)
+    (let ((tail (cdr line)))
+         (and (not (null? tail))
+              (symbol? (car tail))
+              (car tail))))
+
+(define (line-stmt line)
+    (let ((tail (cdr line)))
+         (cond ((null? tail) #f)
+               ((pair? (car tail)) (car tail))
+               ((null? (cdr tail)) #f)
+               (else (cadr tail)))))
+
+(define (not-implemented function args . nl)
+    (printf "(NOT-IMPLEMENTED: ~s ~s)" function args)
+    (when (not (null? nl)) (printf "~n")))
+
+(define (eval-expr expr)
+    (cond ((number? expr) (+ expr 0.0))
+          ((symbol? expr) (hash-ref *var-table* expr 0.0))
+          (else (not-implemented 'eval-expr expr))))
+
+(define (interp-dim args continuation)
+    (not-implemented 'interp-dim args 'nl)
+    (interp-program continuation))
+
+(define (interp-let args continuation)
+    (not-implemented 'interp-let args 'nl)
+    (interp-program continuation))
+
+(define (interp-goto args continuation)
+    (not-implemented 'interp-goto args 'nl)
+    (interp-program continuation))
+
+(define (interp-if args continuation)
+    (not-implemented 'interp-if args 'nl)
+    (interp-program continuation))
+
+(define (interp-print args continuation)
+    (define (print item)
+        (if (string? item)
+            (printf "~a" item)
+            (printf " ~a" (eval-expr item))))
+    (for-each print args)
+    (printf "~n");
+    (interp-program continuation))
+
+(define (interp-input args continuation)
+    (not-implemented 'interp-input args 'nl)
+    (interp-program continuation))
+
+(for-each (lambda (fn) (hash-set! *stmt-table* (car fn) (cadr fn)))
+   `(
+        (dim   ,interp-dim)
+        (let   ,interp-let)
+        (goto  ,interp-goto)
+        (if    ,interp-if)
+        (print ,interp-print)
+        (input ,interp-input)
+    ))
+
+(define (interp-program program)
+    (when (not (null? program))
+          (let ((line (line-stmt (car program)))
+                (continuation (cdr program)))
+               (if line
+                   (let ((func (hash-ref *stmt-table* (car line) #f)))
+                        (func (cdr line) continuation))
+                   (interp-program continuation)))))
+
+(define (readlist filename)
+    (let ((inputfile (open-input-file filename)))
+         (if (not (input-port? inputfile))
+             (die `(,*RUN-FILE* ": " ,filename ": open failed"))
+             (let ((program (read inputfile)))
+                  (close-input-port inputfile)
+                         program))))
+
+(define (dump-program filename program)
+    (define (dump-line line)
+        (dump (line-number line) (line-label line) (line-stmt line)))
+    (dump *RUN-FILE* *DEBUG* filename)
+    (dump program)
+    (for-each (lambda (line) (dump-line line)) program))
+
+(define (main arglist)
+    (cond ((null? arglist)
+                (usage-exit))
+          ((string=? (car arglist) "-d")
+                (set! *DEBUG* #t)
+                (printf "~a: ~s~n" *RUN-FILE* *ARG-LIST*)
+                (main (cdr arglist)))
+          ((not (null? (cdr  arglist)))
+                (usage-exit))
+          (else (let* ((mbprogfile (car arglist))
+                       (program (readlist mbprogfile)))
+                (begin (when *DEBUG* (dump-program mbprogfile program))
+                       (interp-program program))))))
+
+(main *ARG-LIST*)
+
+@
+
+
+1.5
+log
+@-
+@
+text
+@d2 1
+a2 1
+;; $Id: mbir.scm,v 1.4 2020-10-07 18:32:00-07 - - $
+d42 1
+a42 1
+    (for-each (lambda (item) (fprintf *STDERR* "~s " item)) list)
+@
+
+
+1.4
+log
+@-
+@
+text
+@d2 1
+a2 1
+;; $Id: mbir.scm,v 1.3 2020-10-07 18:30:14-07 - - $
+d39 1
+a39 2
+        basename)
+)
+d53 1
+a53 2
+    (die `("Usage: " ,*RUN-FILE* " [-d] filename"))
+)
+@
+
+
+1.3
+log
+@-
+@
+text
+@d2 1
+a2 1
+;; $Id: mbir.scm,v 1.2 2020-09-06 20:23:54-07 - - $
+d39 1
+a39 1
+        (path->string basename))
+@
+
+
+1.2
+log
+@-
+@
+text
+@d2 1
+a2 1
+;; $Id: mbir.scm,v 1.1 2020-09-06 19:54:34-07 - - $
+d37 1
+a37 1
+        (((dirpath basepath root?)
+d39 1
+a39 1
+        (path->string basepath))
+@
+
+
+1.1
+log
+@-
+@
+text
+@d2 1
+a2 1
+;; $Id: mbir.scm,v 1.7 2020-08-30 18:03:47-07 - - $
+d154 3
+a156 3
+          (else (let* ((sbprogfile (car arglist))
+                       (program (readlist sbprogfile)))
+                (begin (when *DEBUG* (dump-program sbprogfile program))
+@

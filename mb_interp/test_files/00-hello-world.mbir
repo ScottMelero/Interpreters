@@ -1,0 +1,5 @@
+;;Source: mb-programs.d/00-hello-world.mb
+(
+(    1          )
+(    2          (print "Hello, World!"))
+)

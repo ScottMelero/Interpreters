@@ -1,0 +1,10 @@
+;;Source: mb-programs.d/21-let-if.mb
+(
+(    1          )
+(    2          (dim (asub a 10)))
+(    3          (let (asub a 2) 6))
+(    4          (if (= (asub a 2) 5) next))
+(4              (print (asub a 2) " = " 5))
+(    5          (print "check did not work"))
+(    6 next     (print "the check worked"))
+)  

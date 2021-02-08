@@ -1,0 +1,8 @@
+;;Source: mb-programs.d/21-let-if.mb
+(
+(    1          )
+(    2          (let i 1))
+(    3 loop     (print i))
+(    4          (let i (+ i 1)))
+(    5          (if (<= i 10) loop))
+)

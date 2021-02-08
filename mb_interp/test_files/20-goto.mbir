@@ -1,0 +1,16 @@
+;;Source: mb-programs.d/20-goto.mb
+(
+(    1          )
+(    2          (goto zero))
+(    3 four     (print "four"))
+(    4          (goto done))
+(    5 one      (print "one"))
+(    6          (goto two))
+(    7 three    (print "three"))
+(    8          (goto four))
+(    9 two      (print "two"))
+(   10          (goto three))
+(   11 zero     (print "zero"))
+(   12          (goto one))
+(   13 done     )
+)

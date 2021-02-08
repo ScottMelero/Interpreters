@@ -1,0 +1,43 @@
+head	1.2;
+access;
+symbols;
+locks;
+comment	@# @;
+
+
+1.2
+date	2020.09.07.03.24.03;	author -;	state -;
+branches;
+next	1.1;
+
+1.1
+date	2020.09.07.02.54.34;	author -;	state -;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.2
+log
+@-
+@
+text
+@#!/bin/sh
+# $Id: debug-mbir,v 1.1 2020-09-06 19:54:34-07 - - $
+mzscheme -f mbir.scm -i -- -d $*
+@
+
+
+1.1
+log
+@-
+@
+text
+@d2 2
+a3 2
+# $Id: debug-sbir,v 1.1 2020-08-25 18:58:19-07 - - $
+mzscheme -f sbir.scm -i -- -d $*
+@

@@ -1,0 +1,18 @@
+;;Source: mb-programs.d/22-fibonacci.mb
+(
+(    1          )
+(    2          )
+(    3          (let max (^ 10 5)))
+(    4          )
+(    5          (let fib0 0))
+(    6          (let fib1 1))
+(    7          (print "fib(" 0 ")=" fib0))
+(    8          (print "fib(" 1 ")=" fib1))
+(    9          (let i 1))
+(   10 loop     (let fib (+ fib0 fib1)))
+(   11          (let i (+ i 1)))
+(   12          (print "fib(" i ")=" fib))
+(   13          (let fib0 fib1))
+(   14          (let fib1 fib))
+(   15          (if (<= fib max) loop))
+)

@@ -1,0 +1,3 @@
+#!/bin/sh
+# $Id: debug-mbir,v 1.2 2020-09-06 20:24:03-07 - - $
+mzscheme -f mbir.scm -i -- -d $*
