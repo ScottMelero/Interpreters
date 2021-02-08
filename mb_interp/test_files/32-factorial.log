@@ -1,1 +1,0 @@
-bash: ./mbir.scm: /afs/cats.ucsc.edu/courses/cse112-wm/usr/racket/bin/mzscheme: bad interpreter: No such file or directory

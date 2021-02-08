@@ -1,0 +1,22 @@
+Object subclass: Program [
+Program class >> get [
+^ #(
+#( 2 nil #( #print #( #pi #e)))
+#( 3 nil #( #let #pi #( #* 4d0 #( #arcTan 1d0))))
+#( 4 nil #( #let #e #( #exp 1d0)))
+#( 5 nil #( #print #( 'pi = ' #pi)))
+#( 6 nil #( #print #( 'e = ' #e)))
+#( 7 nil #( #print #( 'sqrt  (pi) = ' #( #sqrt #pi))))
+#( 8 nil #( #print #( 'exp   (pi) = ' #( #exp #pi))))
+#( 9 nil #( #print #( 'log   (pi) = ' #( #ln #pi))))
+#( 10 nil #( #print #( 'sin   (pi) = ' #( #sin #pi))))
+#( 11 nil #( #print #( 'cos   (pi) = ' #( #cos #pi))))
+#( 12 nil #( #print #( 'tan   (pi) = ' #( #tan #pi))))
+#( 13 nil #( #print #( 'acos  (pi) = ' #( #arcCos #pi))))
+#( 14 nil #( #print #( 'asin  (pi) = ' #( #arcSin #pi))))
+#( 15 nil #( #print #( 'atan  (pi) = ' #( #arcTan #pi))))
+#( 16 nil #( #print #( 'abs   (pi) = ' #( #abs #pi))))
+#( 17 nil #( #print #( 'ceil  (pi) = ' #( #ceiling #pi))))
+#( 18 nil #( #print #( 'floor (pi) = ' #( #floor #pi))))
+#( 19 nil #( #print #( 'round (pi) = ' #( #rounded #pi))))
+).]]

@@ -1,0 +1,16 @@
+Object subclass: Program [
+Program class >> get [
+^ #(
+#( 3 nil #( #let #max #( #raisedTo: 10d0 5d0)))
+#( 5 nil #( #let #fib0 0d0))
+#( 6 nil #( #let #fib1 1d0))
+#( 7 nil #( #print #( 'fib(' 0d0 ')=' #fib0)))
+#( 8 nil #( #print #( 'fib(' 1d0 ')=' #fib1)))
+#( 9 nil #( #let #i 1d0))
+#( 10 #loop #( #let #fib #( #+ #fib0 #fib1)))
+#( 11 nil #( #let #i #( #+ #i 1d0)))
+#( 12 nil #( #print #( 'fib(' #i ')=' #fib)))
+#( 13 nil #( #let #fib0 #fib1))
+#( 14 nil #( #let #fib1 #fib))
+#( 15 nil #( #if #( #<= #fib #max) #loop))
+).]]

@@ -1,0 +1,21 @@
+Object subclass: Program [
+Program class >> get [
+^ #(
+#( 2 #read #( #print #( 'Factorial of:')))
+#( 3 nil #( #input #( #x)))
+#( 4 nil #( #if #( #= #eof 1d0) #stop))
+#( 5 nil #( #if #( #~= #x #x) #error))
+#( 6 nil #( #if #( #< #x 0d0) #error))
+#( 7 nil #( #goto #letfac))
+#( 8 #error #( #print #( 'Invalid input.')))
+#( 9 nil #( #goto #read))
+#( 11 #letfac #( #let #factorial 1d0))
+#( 12 nil #( #let #itor 2d0))
+#( 13 #loop #( #if #( #> #itor #x) #prt))
+#( 14 nil #( #let #factorial #( #* #factorial #itor)))
+#( 15 nil #( #let #itor #( #+ #itor 1d0)))
+#( 16 nil #( #goto #loop))
+#( 17 #prt #( #print #( 'factorial(' #x ') = ' #factorial)))
+#( 18 nil #( #goto #read))
+#( 20 #stop #( #print #( 'Program stopping.')))
+).]]

@@ -1,0 +1,14 @@
+Object subclass: Program [
+Program class >> get [
+^ #(
+#( 2 nil #( #print #( 'Quadratic Equation solver.')))
+#( 3 #loop #( #print #( 'Input a, b, c:')))
+#( 4 nil #( #input #( #a #b #c)))
+#( 5 nil #( #if #( #= #eof 1d0) #stop))
+#( 6 nil #( #let #q #( #sqrt #( #- #( #raisedTo: #b 2d0) #( #* #( #* 4d0 #a) #c)))))
+#( 7 nil #( #print #( 'Equation: ' #a ' * x ^ 2 +' #b ' * x +' #c)))
+#( 8 nil #( #print #( 'root1 = ' #( #/ #( #+ #( #negated #b) #q) #( #* 2d0 #a)))))
+#( 9 nil #( #print #( 'root2 = ' #( #/ #( #- #( #negated #b) #q) #( #* 2d0 #a)))))
+#( 10 nil #( #goto #loop))
+#( 11 #stop #())
+).]]

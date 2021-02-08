@@ -1,8 +1,10 @@
 #!/bin/sh
-# $Id: mk-tests,v 1.4 2020-10-07 08:21:52-07 - - $
+# $Id: mk-tests,v 1.4 2020-11-04 21:18:30-08 - - $
+
 [ ! -d tmp ] && mkdir tmp
-for i in *.mbir
+
+for i in *.mbst
 do
-   echo mbir.scm $i
-   mbir.scm $i >tmp/$i.out 2>tmp/$i.err
+   echo mbint.st $i
+   mbint.st $i >tmp/$i.output
 done

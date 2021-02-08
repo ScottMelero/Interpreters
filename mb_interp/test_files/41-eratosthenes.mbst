@@ -1,0 +1,20 @@
+Object subclass: Program [
+Program class >> get [
+^ #(
+#( 2 nil #( #let #n 100d0))
+#( 3 nil #( #dim #sieve #n))
+#( 7 nil #( #let #i 2d0))
+#( 8 #init #( #let #( #aput #sieve #i) 1d0))
+#( 9 nil #( #let #i #( #+ #i 1d0)))
+#( 10 nil #( #if #( #< #i #n) #init))
+#( 14 nil #( #let #prime 2d0))
+#( 15 #primes #( #if #( #= #( #aget #sieve #prime) 0d0) #next))
+#( 16 nil #( #print #( #prime)))
+#( 17 nil #( #let #i #( #* #prime 2d0)))
+#( 18 nil #( #goto #punch))
+#( 19 #loop #( #let #( #aput #sieve #i) 0d0))
+#( 20 nil #( #let #i #( #+ #i #prime)))
+#( 21 #punch #( #if #( #< #i #n) #loop))
+#( 23 #next #( #let #prime #( #+ #prime 1d0)))
+#( 24 nil #( #if #( #< #prime #n) #primes))
+).]]

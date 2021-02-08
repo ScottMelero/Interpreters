@@ -1,0 +1,1719 @@
+head	1.41;
+access;
+symbols;
+locks;
+comment	@# @;
+
+
+1.41
+date	2020.09.05.05.08.03;	author -;	state -;
+branches;
+next	1.40;
+
+1.40
+date	2020.09.03.06.55.50;	author -;	state -;
+branches;
+next	1.39;
+
+1.39
+date	2020.09.03.06.21.32;	author -;	state -;
+branches;
+next	1.38;
+
+1.38
+date	2020.09.03.00.34.17;	author -;	state -;
+branches;
+next	1.37;
+
+1.37
+date	2020.09.03.00.33.12;	author -;	state -;
+branches;
+next	1.36;
+
+1.36
+date	2020.09.03.00.31.51;	author -;	state -;
+branches;
+next	1.35;
+
+1.35
+date	2020.09.02.20.16.11;	author -;	state -;
+branches;
+next	1.34;
+
+1.34
+date	2020.09.02.20.14.31;	author -;	state -;
+branches;
+next	1.33;
+
+1.33
+date	2020.09.01.08.25.19;	author -;	state -;
+branches;
+next	1.32;
+
+1.32
+date	2020.09.01.08.21.36;	author -;	state -;
+branches;
+next	1.31;
+
+1.31
+date	2020.09.01.08.18.47;	author -;	state -;
+branches;
+next	1.30;
+
+1.30
+date	2020.09.01.07.12.58;	author -;	state -;
+branches;
+next	1.29;
+
+1.29
+date	2020.08.31.22.41.34;	author -;	state -;
+branches;
+next	1.28;
+
+1.28
+date	2020.08.31.22.30.22;	author -;	state -;
+branches;
+next	1.27;
+
+1.27
+date	2020.08.31.22.26.54;	author -;	state -;
+branches;
+next	1.26;
+
+1.26
+date	2020.08.31.22.04.32;	author -;	state -;
+branches;
+next	1.25;
+
+1.25
+date	2020.08.31.21.54.39;	author -;	state -;
+branches;
+next	1.24;
+
+1.24
+date	2020.08.31.20.55.10;	author -;	state -;
+branches;
+next	1.23;
+
+1.23
+date	2020.08.31.06.42.34;	author -;	state -;
+branches;
+next	1.22;
+
+1.22
+date	2020.08.31.06.37.20;	author -;	state -;
+branches;
+next	1.21;
+
+1.21
+date	2020.08.31.06.26.09;	author -;	state -;
+branches;
+next	1.20;
+
+1.20
+date	2020.08.31.06.24.42;	author -;	state -;
+branches;
+next	1.19;
+
+1.19
+date	2020.08.31.06.13.45;	author -;	state -;
+branches;
+next	1.18;
+
+1.18
+date	2020.08.31.06.13.00;	author -;	state -;
+branches;
+next	1.17;
+
+1.17
+date	2020.08.30.20.45.56;	author -;	state -;
+branches;
+next	1.16;
+
+1.16
+date	2020.08.30.20.35.23;	author -;	state -;
+branches;
+next	1.15;
+
+1.15
+date	2020.08.30.20.08.36;	author -;	state -;
+branches;
+next	1.14;
+
+1.14
+date	2020.08.30.20.06.51;	author -;	state -;
+branches;
+next	1.13;
+
+1.13
+date	2020.08.30.07.45.24;	author -;	state -;
+branches;
+next	1.12;
+
+1.12
+date	2020.08.30.07.00.21;	author -;	state -;
+branches;
+next	1.11;
+
+1.11
+date	2020.08.30.06.49.29;	author -;	state -;
+branches;
+next	1.10;
+
+1.10
+date	2020.08.30.01.27.40;	author -;	state -;
+branches;
+next	1.9;
+
+1.9
+date	2020.08.30.01.23.10;	author -;	state -;
+branches;
+next	1.8;
+
+1.8
+date	2020.08.30.01.12.48;	author -;	state -;
+branches;
+next	1.7;
+
+1.7
+date	2020.08.30.00.55.22;	author -;	state -;
+branches;
+next	1.6;
+
+1.6
+date	2020.08.29.22.59.17;	author -;	state -;
+branches;
+next	1.5;
+
+1.5
+date	2020.08.29.20.01.07;	author -;	state -;
+branches;
+next	1.4;
+
+1.4
+date	2020.08.29.19.53.22;	author -;	state -;
+branches;
+next	1.3;
+
+1.3
+date	2020.08.29.19.53.07;	author -;	state -;
+branches;
+next	1.2;
+
+1.2
+date	2020.08.29.19.07.12;	author -;	state -;
+branches;
+next	1.1;
+
+1.1
+date	2020.08.29.18.40.17;	author -;	state -;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.41
+log
+@-
+@
+text
+@#!/afs/cats.ucsc.edu/courses/cse112-wm/usr/smalltalk/bin/gst -f
+"$Id: sbint.st,v 1.40 2020-09-02 23:55:50-07 - - $"
+
+Object subclass: Debug [
+   level := 0. "multiple -d, -dd, -ddd options set debug level"
+   Debug class >> incr [level := level + 1]
+   Debug class >> > value [^ level > value]
+].
+
+Object subclass: SmallBasic [
+   nl := Character nl.
+   SmallBasic class >> unimplemented: object [
+      |caller|
+      caller := thisContext parentContext.
+      stdout << 'Error: ' << object class << ' inherits '
+             << caller method << ': ' << object << nl.
+   ] 
+   prefix [^ '(', self class printString, ' ']
+].
+
+SmallBasic subclass: Expr [ "abstract base class"
+   nan := 0.0 / 0.0.
+   printOn: file [^ file << self prefix << ')']
+   value [SmallBasic unimplemented: self. ^ nan]
+].
+
+Expr subclass: NumExpr [
+   |value|
+   NumExpr class >> new: val [^ super new init: val]
+   init: val [value := val + 0.0d0]
+   printOn: file [^ file << self prefix << value << ')']
+   value [^ value]
+].
+
+Expr subclass: VarExpr [
+   |variable|
+   varDict := Dictionary from: {
+      #e   -> 1.0 exp.
+      #eof -> 0.0.
+      #nan -> (0.0 / 0.0).
+      #pi  -> -1.0 arcCos.
+   }.
+   VarExpr class >> new: var [^ super new init: var]
+   init: var [variable := var]
+   printOn: file [^ file << self prefix << variable << ')']
+   put: val [varDict at: variable put: val]
+   value [^ varDict at: variable ifAbsent: [0.0]]
+].
+
+Expr subclass: UnopExpr [
+   |oper opnd|
+   UnopExpr class >> new: op with: opn [
+      ^ super new init: op init: opn.
+   ]
+   init: op init: opn [
+      oper := op. opnd := opn.
+   ]
+   printOn: file [
+      ^ file << self prefix << oper << ' ' << opnd << ')'.
+   ]
+].
+
+Expr subclass: BinopExpr [
+   |oper opnd1 opnd2|
+   BinopExpr class >> new: op with: opn1 with: opn2 [
+      ^ super new init: op with: opn1 with: opn2.
+   ]
+   init: op with: opn1 with: opn2 [
+      oper := op. opnd1 := opn1. opnd2 := opn2.
+   ]
+   printOn: file [
+      ^ file << self prefix << oper << ' ' << opnd1
+             << ' ' << opnd2 << ')'.
+   ]
+].
+
+Expr subclass: ArrayExpr [
+   |arrayname|
+   arrayDict := Dictionary new.
+   VarExpr class >> new: var [^ super new init: name]
+   init: var [arrayname := name]
+   printOn: file [^ file << self prefix << arrayname << ')']
+].
+
+Expr extend [
+   Expr class >> parse: expr [
+      expr isNumber ifTrue: [^ NumExpr new: expr].
+      expr isSymbol ifTrue: [^ VarExpr new: expr].
+      expr isArray ifTrue: [
+         expr size = 2 ifTrue: [
+            ^ UnopExpr new: (expr at: 1)
+                       with: (Expr parse: (expr at: 2)).
+         ].
+         expr size = 3 ifTrue: [
+            ^ BinopExpr new: (expr at: 1)
+                        with: (Expr parse: (expr at: 2))
+                        with: (Expr parse: (expr at: 3)).
+         ].
+         SmallBasic unimplemented: expr. ^ nil. "assert can not happen"
+      ].
+      SmallBasic unimplemented: expr. ^ nil. "assert can not happen"
+   ]
+].
+
+SmallBasic subclass: Stmt [ "abstract base class"
+   stmtNr := 1.
+   Stmt class >> getStmtNr [^ stmtNr]
+   Stmt class >> incrStmtNr [stmtNr := stmtNr + 1]
+   labelDict := Dictionary new.
+   printOn: file [^ file << self prefix << ')']
+   interp [SmallBasic unimplemented: self.]
+].
+
+Stmt subclass: DimStmt [
+   |name size|
+   DimStmt class >> new: stmt [^ super new init: stmt]
+   init: stmt [
+      name := stmt at: 2.
+      size := Expr parse: (stmt at: 3).
+   ]
+   printOn: file [^ file << self prefix << name << ' ' << size << ')']
+].
+
+Stmt subclass: LetStmt [
+   |name expr|
+   LetStmt class >> new: stmt [^ super new init: stmt]
+   init: stmt [
+      name := stmt at: 2.
+      expr := Expr parse: (stmt at: 3).
+   ]
+   printOn: file [^ file << self prefix << name << ' ' << expr << ')']
+].
+
+Stmt subclass: GotoStmt [
+   |label|
+   GotoStmt class >> new: stmt [^ super new init: stmt]
+   init: stmt [label := stmt at: 2]
+   printOn: file [^ file << self prefix << label << ')']
+].
+
+Stmt subclass: IfStmt [
+   |expr label|
+   IfStmt class >> new: stmt [^ super new init: stmt]
+   init: stmt [
+      expr := Expr parse: (stmt at: 2).
+      label := stmt at: 3.
+   ]
+   printOn: file [^ file << self prefix << expr << ' ' << label << ')']
+].
+
+Stmt subclass: InputStmt [
+   |inputVars|
+   InputStmt class >> new: stmt [^ super new init: stmt]
+   init: stmt [
+      |args|
+      args := stmt at: 2.
+      inputVars := Array new: args size.
+      1 to: args size do: [:index|
+         inputVars at: index put: (Expr parse: (args at: index)).
+      ]
+   ]
+   printOn: file [^ file << self prefix << inputVars << ')']
+].
+
+Stmt subclass: PrintStmt [
+   |printables|
+   PrintStmt class >> new: stmt [^ super new init: stmt]
+   init: stmt [
+      |args|
+      args := stmt at: 2.
+      printables := Array new: args size.
+      1 to: args size do: [:index|
+         |arg|
+         arg := args at: index.
+         arg isString ifFalse: [ arg := Expr parse: arg].
+         printables at: index put: arg.
+      ]
+   ]
+   printOn: file [^ file << self prefix << printables << ')']
+   interp [
+      printables do: [:obj|
+         obj isString ifTrue: [stdout << obj]
+                      ifFalse: [stdout << ' ' << obj value].
+      ].
+      stdout << nl.
+   ]
+].
+
+Stmt subclass: NullStmt [
+   NullStmt class >> new: stmt [^ super new]
+   printOn: file [^ file << self prefix << ')']
+   interp []
+].
+
+Stmt extend [
+   stmtDict := Dictionary from: {
+      #dim   -> DimStmt.
+      #let   -> LetStmt.
+      #goto  -> GotoStmt.
+      #if    -> IfStmt.
+      #input -> InputStmt.
+      #print -> PrintStmt.
+      #null  -> NullStmt.
+   }.
+   Stmt class >> parse: stmt [
+      |stmtSym stmtClass|
+      stmt size = 0 ifTrue: [stmtSym := #null]
+                    ifFalse: [stmtSym := stmt at: 1].
+      stmtClass := stmtDict at: stmtSym.
+      ^ stmtClass new: stmt.
+   ]
+]
+
+SmallBasic subclass: Interpreter [
+   |statements|
+   Interpreter class >> new: program [^ super new init: program]
+   init: program [
+      statements := Array new: program size.
+      1 to: program size do: [:index|
+         |stmt parsed|
+         stmt := (program at: index) at: 3.
+         statements at: index put: (Stmt parse: stmt).
+      ].
+   ]
+
+   print [
+      stdout << 'Interpreter statements: [' << nl.
+      1 to: statements size do: [:index|
+         stdout << '   ' << index << ': '
+                << (statements at: index) << nl.
+      ].
+      stdout << '].' << nl.
+   ]
+
+   interpret [
+      |stmtNr|
+      [stmtNr := Stmt getStmtNr. stmtNr <= statements size]
+      whileTrue: [
+         |stmtObj|
+         Stmt incrStmtNr.
+         stmtObj := statements at: stmtNr.
+         Debug > 1 ifTrue: [stdout << stmtNr << ': ' << stmtObj << nl].
+         stmtObj interp.
+      ]
+   ]
+].
+
+Object subclass: Main [
+   nl := Character nl.
+   scriptName := thisContext currentFileName.
+
+   Main class >> usage [
+      stderr << 'Usage: ' << scriptName << ' [-d] fileName' << nl.
+      ObjectMemory quit: 1.
+   ]
+
+   Main class >> print: program [
+      stdout << 'Main program: [' << nl.
+      1 to: program size do: [:index|
+         stdout << '   ' << index << ': ' << (program at: index) << nl.
+      ].
+      stdout << '].' << nl.
+   ]
+
+   Main class >> getopts [
+      |fileName|
+      Smalltalk arguments: '-d' do: [:opt :arg|
+         opt = $d ifTrue: [Debug incr].
+         opt = nil ifTrue: [
+            fileName isNil ifFalse: [Main usage value].
+            fileName := arg.
+         ].
+      ] ifError: [Main usage value].
+      Debug > 0 ifTrue: [
+         stdout << scriptName << ': ' << Smalltalk arguments << nl.
+      ].
+      ^ fileName.
+   ]
+
+   Main class >> main [
+      |fileName|
+      fileName := Main getopts.
+      fileName isNil ifTrue: [Main usage value].
+      [
+         |program interpreter|
+         FileStream fileIn: fileName.
+         program := Program get.
+         Debug > 0 ifTrue: [Main print: program].
+         interpreter := Interpreter new: program.
+         Debug > 0 ifTrue: [interpreter print].
+         interpreter interpret.
+      ] on: SystemExceptions.FileError do: [:signal|
+         stderr << scriptName << ': ' << fileName << ': '
+                << signal messageText << nl.
+         ObjectMemory quit: 1.
+      ].
+   ]
+].
+
+Main main.
+
+@
+
+
+1.40
+log
+@-
+@
+text
+@d2 1
+a2 1
+"$Id: sbint.st,v 1.39 2020-09-02 23:21:32-07 - - $"
+d30 1
+a30 1
+   init: val [value := val]
+d78 1
+d80 3
+@
+
+
+1.39
+log
+@-
+@
+text
+@d2 1
+a2 1
+"$Id: sbint.st,v 1.38 2020-09-02 17:34:17-07 - - $"
+d16 1
+a16 1
+             << caller method << ' for:' << nl << object << nl.
+@
+
+
+1.38
+log
+@-
+@
+text
+@d2 1
+a2 1
+"$Id: sbint.st,v 1.37 2020-09-02 17:33:12-07 - - $"
+d15 1
+a15 1
+      stdout << nl << 'Error: ' << object class << ' inherits '
+@
+
+
+1.37
+log
+@-
+@
+text
+@d2 1
+a2 1
+"$Id: sbint.st,v 1.36 2020-09-02 17:31:51-07 - - $"
+d15 2
+a16 2
+      stdout << 'Error: ' << object class << ' inherits '
+             << caller method << ' for: ' << object << nl.
+@
+
+
+1.36
+log
+@-
+@
+text
+@d2 1
+a2 1
+"$Id: sbint.st,v 1.35 2020-09-02 13:16:11-07 - - $"
+d16 1
+a16 4
+         << caller method << ' '
+"        << '(' << caller currentFileName"
+"        << ':' << caller currentLineInFile << ')'"
+         << object << nl.
+@
+
+
+1.35
+log
+@-
+@
+text
+@d2 1
+a2 1
+"$Id: sbint.st,v 1.34 2020-09-02 13:14:31-07 - - $"
+d13 7
+a19 7
+      |parent|
+      parent := thisContext parentContext.
+      stdout << parent method
+             << ' (' << parent currentFileName
+             << ':' << parent currentLineInFile
+             << ') unimplemented: '
+             << object << nl.
+d90 2
+a91 1
+            ^ UnopExpr new: (expr at: 1) with: (expr at: 2).
+d94 3
+a96 2
+            ^ BinopExpr new: (expr at: 1) with: (expr at: 2)
+                                          with: (expr at: 3).
+@
+
+
+1.34
+log
+@-
+@
+text
+@d2 1
+a2 1
+"$Id: sbint.st,v 1.33 2020-09-01 01:25:19-07 - - $"
+d75 2
+a76 1
+      ^ file << self prefix << oper << ' ' opnd1 << ' ' opnd2 << ')'.
+d89 1
+a89 1
+         expr size = 1 ifTrue: [
+d92 1
+a92 1
+         expr size = 2 ifTrue: [
+@
+
+
+1.33
+log
+@-
+@
+text
+@d2 1
+a2 1
+"$Id: sbint.st,v 1.32 2020-09-01 01:21:36-07 - - $"
+d11 9
+a19 3
+   unimplemented [
+      stdout << thisContext parentContext method << ' unimplemented: '
+             << self << Character nl.
+a24 1
+   nl := Character nl.
+d27 1
+a27 1
+   value [self unimplemented. ^ nan]
+d53 24
+a76 5
+Expr subclass: OperExpr [
+   |oper opnds|
+   OperExpr class >> new: op with: nds [^ super new init: op init: nds]
+   init: op init: nds [oper := op. opnds := nds]
+   printOn: file [^ file << self prefix << oper << ' ' << opnds << ')']
+d88 2
+a89 5
+         |size opnds|
+         size := expr size - 1.
+         opnds := Array new: size.
+         1 to: size do: [:index|
+            opnds at: index put: (Expr parse: (expr at: index + 1)).
+d91 5
+a95 1
+         ^ OperExpr new: (expr at: 1) with: opnds.
+d97 1
+a97 2
+      self unimplemented. "assert can not happen"
+      ^ nil.
+a101 1
+   nl := Character nl.
+d107 1
+a107 1
+   interp [self unimplemented.]
+a210 1
+   nl := Character nl.
+d245 1
+a246 1
+   nl := Character nl.
+@
+
+
+1.32
+log
+@-
+@
+text
+@d2 1
+a2 1
+"$Id: sbint.st,v 1.31 2020-09-01 01:18:47-07 - - $"
+d72 1
+a72 1
+      self unimplemented.
+@
+
+
+1.31
+log
+@-
+@
+text
+@d2 1
+a2 1
+"$Id: sbint.st,v 1.30 2020-09-01 00:12:58-07 - - $"
+d15 1
+a20 1
+   prefix [^ '(', self class printString, ' ']
+a82 1
+   prefix [^ '(', self class printString, ' ']
+@
+
+
+1.30
+log
+@-
+@
+text
+@d2 1
+a2 1
+"$Id: sbint.st,v 1.29 2020-08-31 15:41:34-07 - - $"
+d4 7
+a10 1
+Object extend [
+d17 1
+a17 7
+Object subclass: Debug [
+   level := 0. "multiple -d, -dd, -ddd options set debug level"
+   Debug class >> incr [level := level + 1]
+   Debug class >> > value [^ level > value]
+].
+
+Object subclass: Expr [ "abstract base class"
+d77 1
+a77 1
+Object subclass: Stmt [ "abstract base class"
+d188 1
+a188 1
+Object subclass: Interpreter [
+@
+
+
+1.29
+log
+@-
+@
+text
+@d2 8
+a9 1
+"$Id: sbint.st,v 1.28 2020-08-31 15:30:22-07 - - $"
+a19 1
+   error [^ thisContext parentContext method printString, ' error: ']
+d22 1
+a22 1
+   value [stdout << self error << self << nl. ^ nan]
+d72 1
+a72 1
+      stdout << self error >> 'syntax: ' << self << nl.
+a78 1
+   error [^ thisContext parentContext method printString, ' error: ']
+d85 1
+a85 1
+   interp [stdout << self error << self << nl]
+@
+
+
+1.28
+log
+@-
+@
+text
+@d2 1
+a2 1
+"$Id: sbint.st,v 1.27 2020-08-31 15:26:54-07 - - $"
+d16 1
+a16 1
+   eval [stdout << self error << self << nl. ^ nan]
+d24 1
+a24 1
+   eval [^ value]
+d39 1
+a39 1
+   eval [^ varDict at: variable ifAbsent: [0.0]]
+d152 1
+a152 1
+                      ifFalse: [stdout << ' ' << obj eval].
+@
+
+
+1.27
+log
+@-
+@
+text
+@d2 1
+a2 1
+"$Id: sbint.st,v 1.26 2020-08-31 15:04:32-07 - - $"
+d66 1
+a66 1
+      stdout << self class >> '>>parse: syntax error: ' << self << nl.
+a72 1
+   init: stmt [stdout << self error << ' error: ' << self << nl]
+@
+
+
+1.26
+log
+@-
+@
+text
+@d2 1
+a2 5
+"$Id: sbint.st,v 1.25 2020-08-31 14:54:39-07 - - $"
+
+Object extend [
+   method [^ thisContext parentContext method]
+].
+d13 1
+d15 2
+a16 2
+   printOn: file [^ (self print0n1: file) << ')']
+   eval [stdout << self method << ' error: ' << self << nl. ^ nan]
+d73 2
+a74 1
+   init: stmt [stdout << self method << ' error: ' << self << nl]
+d81 1
+a81 1
+   exec [stdout << self class << '>>exec error: ' << self << nl]
+d87 4
+d118 1
+a118 3
+   printOn: file [
+      ^ file << self prefix << expr << ' ' << label << ')'.
+   ]
+d150 1
+a150 1
+   exec [
+d162 1
+a162 1
+   exec []
+d214 1
+a214 1
+         stmtObj exec.
+@
+
+
+1.25
+log
+@-
+@
+text
+@d2 1
+a2 1
+"$Id: sbint.st,v 1.24 2020-08-31 13:55:10-07 - - $"
+d17 1
+a17 1
+   printOn1: file [^ file << '(' << self class << ' ']
+d26 1
+a26 1
+   printOn: file [^ (self printOn1: file) << value << ')']
+d40 1
+a40 1
+   printOn: file [^ (self printOn1: file) << variable << ')']
+d49 1
+a49 1
+   printOn: file [^(self printOn1: file) << oper << ' ' << opnds << ')']
+d81 2
+a82 2
+   printOn1: file [^ file << '(' << self class << ' ']
+   printOn: file [^ (self printOn1: file) << ')']
+d89 1
+a89 1
+   printOn: file [^ (self printOn1: file) << name << ' ' << size << ')']
+d99 1
+a99 1
+   printOn: file [^ (self printOn1: file) << name << ' ' << expr << ')']
+d106 1
+a106 1
+   printOn: file [^ (self printOn1: file) << label << ')']
+d117 1
+a117 1
+      ^ (self printOn1: file) << expr << ' ' << label << ')'.
+d132 1
+a132 1
+   printOn: file [^ (self printOn1: file) << inputVars << ')']
+d149 1
+a149 1
+   printOn: file [^ (self printOn1: file) << printables << ')']
+d161 1
+a161 1
+   printOn: file [^ (self printOn1: file) << ')']
+@
+
+
+1.24
+log
+@-
+@
+text
+@d2 5
+a6 1
+"$Id: sbint.st,v 1.23 2020-08-30 23:42:34-07 - - $"
+d19 1
+a19 1
+   eval [stdout << self class << '>>eval error: ' << self << nl. ^ nan]
+d76 1
+a76 1
+   init: stmt [stdout << self class << '>>init error: ' << self << nl]
+@
+
+
+1.23
+log
+@-
+@
+text
+@d2 1
+a2 1
+"$Id: sbint.st,v 1.22 2020-08-30 23:37:20-07 - - $"
+d216 1
+a216 1
+   progName := thisContext method methodSourceFile =~ '.*/(.*)' at: 1.
+d220 1
+a220 1
+      stderr << 'Usage: ' << progName << ' [-d] filename' << nl.
+d233 1
+a233 1
+      |filename|
+d237 2
+a238 2
+            filename isNil ifFalse: [Main usage value].
+            filename := arg.
+d241 4
+a244 1
+      ^ filename.
+d248 3
+a250 3
+      |filename|
+      filename := Main getopts.
+      filename isNil ifTrue: [Main usage value].
+d253 1
+a253 1
+         FileStream fileIn: filename.
+d260 1
+a260 1
+         stderr << progName << ': ' << filename << ': '
+@
+
+
+1.22
+log
+@-
+@
+text
+@d2 1
+a2 1
+"$Id: sbint.st,v 1.21 2020-08-30 23:26:09-07 - - $"
+d196 2
+a197 1
+         stdout << '  ' << index << ': ' << (statements at: index) << nl.
+d199 1
+a199 1
+      stdout << ']' << nl.
+d227 1
+a227 1
+         stdout << '  ' << index << ': ' << (program at: index) << nl.
+d229 1
+a229 1
+      stdout << ']' << nl.
+@
+
+
+1.21
+log
+@-
+@
+text
+@d2 1
+a2 1
+"$Id: sbint.st,v 1.20 2020-08-30 23:24:42-07 - - $"
+d182 1
+a182 1
+   |progObjs|
+d185 1
+a185 1
+      progObjs := Array new: program size.
+d189 1
+a189 1
+         progObjs at: index put: (Stmt parse: stmt).
+d194 3
+a196 3
+      stdout << 'Interpreter progObjs: [' << nl.
+      1 to: progObjs size do: [:index|
+         stdout << '   ' << index << ': ' << (progObjs at: index) << nl.
+d203 1
+a203 1
+      [stmtNr := Stmt getStmtNr. stmtNr <= progObjs size]
+d207 1
+a207 1
+         stmtObj := progObjs at: stmtNr.
+d226 1
+a226 1
+         stdout << '   ' << index << ': ' << (program at: index) << nl.
+@
+
+
+1.20
+log
+@-
+@
+text
+@d2 1
+a2 1
+"$Id: sbint.st,v 1.19 2020-08-30 23:13:45-07 - - $"
+d248 1
+a248 1
+         |program interp|
+d252 3
+a254 3
+         interp := Interpreter new: program.
+         Debug > 0 ifTrue: [interp print].
+         interp interpret.
+@
+
+
+1.19
+log
+@-
+@
+text
+@d2 1
+a2 1
+"$Id: sbint.st,v 1.18 2020-08-30 23:13:00-07 - - $"
+d180 1
+a180 1
+Object subclass: Interp [
+d183 1
+a183 1
+   Interp class >> new: program [^ super new init: program]
+d194 1
+a194 1
+      stdout << 'Interp progObjs: [' << nl.
+d252 1
+a252 1
+         interp := Interp new: program.
+@
+
+
+1.18
+log
+@-
+@
+text
+@d2 1
+a2 1
+"$Id: sbint.st,v 1.17 2020-08-30 13:45:56-07 - - $"
+d15 1
+a15 1
+   eval [stdout << self class << '>>eval ERROR: ' << self << nl. ^ nan]
+d72 1
+a72 1
+   init: stmt [stdout << self class << '>>init ERROR: ' << self << nl]
+d79 1
+a79 1
+   exec [stdout << self class << '>>exec ERROR: ' << self << nl]
+@
+
+
+1.17
+log
+@-
+@
+text
+@d2 1
+a2 1
+"$Id: sbint.st,v 1.16 2020-08-30 13:35:23-07 - - $"
+d65 1
+a65 2
+      stdout << self class >> '>>parse: INTERPRETER ERROR: '
+             << self << nl.
+@
+
+
+1.16
+log
+@-
+@
+text
+@d2 1
+a2 1
+"$Id: sbint.st,v 1.15 2020-08-30 13:08:36-07 - - $"
+a47 16
+"
+Expr subclass: BinopExpr [
+   |oper opnd1 opnd2|
+   BinopExpr class >> new: op with: opn1 with: opn2 [
+      ^ super new init: op init: opn1 init: opn2.
+   ]
+   init: op init: opn1 init: opn2 [
+      oper := op. opnd1 := opn1. opnd2 := opn2.
+   ]
+   printOn: file [
+      ^ (self printOn1: file) << oper << ' ' << opnd1
+                                      << ' ' << opnd2 << ')'
+   ]
+].
+"
+
+d183 1
+a183 1
+   |progObjects|
+d186 1
+a186 1
+      progObjects := Array new: program size.
+d190 1
+a190 1
+         progObjects at: index put: (Stmt parse: stmt).
+d195 3
+a197 4
+      stdout << 'Interp progObjects: [' << nl.
+      1 to: progObjects size do: [:index|
+         stdout << '   ' << index << ': '
+                << (progObjects at: index) << nl.
+d204 1
+a204 1
+      [stmtNr := Stmt getStmtNr. stmtNr <= progObjects size]
+d208 1
+a208 1
+         stmtObj := progObjects at: stmtNr.
+d227 1
+a227 2
+         stdout << '   [' << index << ']: '
+                << (program at: index) << nl.
+d232 1
+a232 1
+   Main class >> main [
+d241 6
+@
+
+
+1.15
+log
+@-
+@
+text
+@d2 1
+a2 1
+"$Id: sbint.st,v 1.13 2020-08-30 00:45:24-07 - - $"
+d41 5
+a45 5
+Expr subclass: UnopExpr [
+   |oper opnd|
+   UnopExpr class >> new: op with: ops [^ super new init: op init: ops]
+   init: op init: ops [oper := op. opnd := ops]
+   printOn: file [^ (self printOn1: file) << oper << ' ' << opnd << ')']
+d48 1
+d62 1
+d73 7
+a79 12
+         expr size = 2
+            ifTrue: [
+               |obj1|
+               obj1 := Expr parse: (expr at: 2).
+               ^ UnopExpr new: (expr at: 1) with: obj1.
+            ]
+            ifFalse: [
+               |obj1 obj2|
+               obj1 := Expr parse: (expr at: 2).
+               obj2 := Expr parse: (expr at: 3).
+               ^ BinopExpr new: (expr at: 1) with: obj1 with: obj2.
+            ].
+d199 1
+a199 1
+   |program stmtObjects|
+d202 1
+a202 1
+      stmtObjects := Array new: program size.
+d206 1
+a206 1
+         stmtObjects at: index put: (Stmt parse: stmt).
+d211 2
+a212 2
+      stdout << 'Interp stmtObjects: [' << nl.
+      1 to: stmtObjects size do: [:index|
+d214 1
+a214 1
+                << (stmtObjects at: index) << nl.
+d221 1
+a221 1
+      [stmtNr := Stmt getStmtNr. stmtNr <= stmtObjects size]
+d225 1
+a225 1
+         stmtObj := stmtObjects at: stmtNr.
+@
+
+
+1.14
+log
+@-
+@
+text
+@d15 1
+a15 1
+   eval [stdout << self class << '>>eval TO DO: ' << self << nl. ^ nan]
+d92 1
+a92 1
+   init: stmt [stdout << self class << '>>init TO DO: ' << self << nl]
+d99 1
+a99 1
+   exec [stdout << self class << '>>exec TO DO: ' << self << nl]
+@
+
+
+1.13
+log
+@-
+@
+text
+@d2 1
+a2 1
+"$Id: sbint.st,v 1.12 2020-08-30 00:00:21-07 - - $"
+d15 1
+a15 1
+   eval [stdout << self class << '>>eval ERROR: ' << self << nl. ^ nan]
+d92 1
+a92 1
+   init: stmt [stdout << self class << '>>init ERROR: ' << self << nl]
+d99 1
+a99 1
+   exec [stdout << self class << '>>exec ERROR: ' << self << nl]
+@
+
+
+1.12
+log
+@-
+@
+text
+@d2 1
+a2 1
+"$Id: sbint.st,v 1.11 2020-08-29 23:49:29-07 - - $"
+d10 1
+a10 1
+Object subclass: Expr [
+d15 1
+a15 4
+   eval [
+      stdout << self class << '>>eval UNIMPLEMENTED: ' << self << nl.
+      ^ nan.
+   ]
+d90 1
+a90 1
+Object subclass: Stmt [
+d92 1
+a92 3
+   init: stmt [
+      stdout << self class << '>>init UNIMPLEMENTED: ' << self << nl.
+   ]
+d99 1
+a99 3
+   exec [
+      stdout << self class << '>>exec UNIMPLEMENTED: ' << self << nl.
+   ]
+@
+
+
+1.11
+log
+@-
+@
+text
+@d2 1
+a2 1
+"$Id: sbint.st,v 1.10 2020-08-29 18:27:40-07 - - $"
+d16 1
+a16 1
+      stdout << self class >> ' >> eval UNIMPLEMENTED: ' << self << nl.
+d87 1
+a87 1
+      stdout << self class >> ' >> parse: INTERPRETER ERROR: '
+d96 1
+a96 1
+      stdout << self class << ' >> init UNIMPLEMENTED: ' << self << nl.
+d105 1
+a105 1
+      stdout << self class << ' >> exec UNIMPLEMENTED: ' << self << nl.
+@
+
+
+1.10
+log
+@-
+@
+text
+@d2 1
+a2 1
+"$Id: sbint.st,v 1.9 2020-08-29 18:23:10-07 - - $"
+d5 1
+a5 1
+   level := 1. "multiple -d, -dd, -ddd options set debug level"
+@
+
+
+1.9
+log
+@-
+@
+text
+@d2 1
+a2 1
+"$Id: sbint.st,v 1.8 2020-08-29 18:12:48-07 - - $"
+d17 1
+a17 1
+      ^ nan
+@
+
+
+1.8
+log
+@-
+@
+text
+@d2 1
+a2 1
+"$Id: sbint.st,v 1.7 2020-08-29 17:55:22-07 - - $"
+d135 1
+a135 1
+   init [
+d145 1
+a145 1
+   |lvalues|
+d147 9
+a155 1
+   printOn: file [^ (self printOn1: file) << lvalues << ')']
+@
+
+
+1.7
+log
+@-
+@
+text
+@d2 1
+a2 1
+"$Id: nn-sbint.st,v 1.6 2020-08-29 15:59:17-07 - - $"
+d87 3
+d118 4
+d128 1
+d135 4
+a146 1
+   init: stmt []
+@
+
+
+1.6
+log
+@-
+@
+text
+@d2 1
+a2 1
+"$Id: nn-sbint.st,v 1.5 2020-08-29 13:01:07-07 - - $"
+d15 4
+a18 1
+   eval [stdout << 'eval NOT IMPLEMENTED: ' << self << nl. ^ nan]
+d26 1
+a26 1
+   eval [^ value].
+d84 1
+a84 1
+               ^ BinopExpr new: (expr at: 1) arg1: obj1 arg2: obj2.
+d92 3
+d101 3
+a103 1
+   execute [stdout << 'execute NOT IMPLEMENTED: ' << self << nl]
+a108 3
+   init: stmt [
+      stdout << 'init NOT IMPLEMENTED: ' << self << nl.
+   ]
+a114 3
+   init: stmt [
+      stdout << 'init NOT IMPLEMENTED: ' << self << nl.
+   ]
+a120 3
+   init: stmt [
+      stdout << 'init NOT IMPLEMENTED: ' << self << nl.
+   ]
+a126 3
+   init: stmt [
+      stdout << 'init NOT IMPLEMENTED: ' << self << nl.
+   ]
+d135 1
+a135 3
+   init: stmt [
+      stdout << 'init NOT IMPLEMENTED: ' << self << nl.
+   ]
+d154 1
+a154 1
+   execute [
+d164 1
+a164 1
+   NullStmt class >> parse: stmt [^ NullStmt new]
+d166 1
+a166 1
+   execute []
+d180 1
+a180 1
+      |stmtSym|
+d183 2
+a184 1
+      ^ (stmtDict at: stmtSym) new: stmt
+d197 1
+a197 4
+         Debug > 1 ifTrue: [stdout << stmt << nl].
+         parsed := Stmt parse: stmt.
+         Debug > 1 ifTrue: [stdout << parsed << nl].
+         stmtObjects at: index put: parsed.
+d218 1
+a218 1
+         stmtObj execute.
+@
+
+
+1.5
+log
+@-
+@
+text
+@d2 7
+a8 1
+"$Id: nn-sbint.st,v 1.4 2020-08-29 12:53:22-07 - - $"
+d13 1
+a13 7
+   eval [stdout << 'NOT IMPLEMENTED: ' << self << nl. ^ nan]
+   printOn1: file [
+      |name|
+      name := self class printString
+              copyReplacingRegex: 'Expr' with: ''.
+      ^ file << '(' << name << ' '
+   ]
+d15 1
+d23 1
+d38 1
+d66 2
+a67 2
+Expr subclass: ExprParser [
+   ExprParser class >> parse: expr [
+a70 2
+         |object1|
+         object1 := ExprParser parse: (expr at: 2).
+d73 3
+a75 1
+               ^ UnopExpr new: (expr at: 1) with: object1.
+d78 4
+a81 2
+               ^ BinopExpr new: (expr at: 1) arg1: object1
+                           arg2: (ExprParser parse: (expr at: 3)).
+d85 1
+a85 1
+]
+d95 1
+a95 1
+   execute [stdout << 'NOT IMPLEMENTED: ' << self << nl]
+d100 3
+a102 5
+   DimStmt class >> new: id with: siz [^ super new init: id init: siz]
+   init: id init: siz [name := id. size := siz]
+   DimStmt class >> parse: stmt [
+      stdout << self class << ': ' << stmt << nl.
+      ^ 'NOT IMPLEMENTED'
+d109 3
+a111 5
+   LetStmt class >> new: id with: exp [^ super new init: id init: exp]
+   init: id init: exp [name := id. expr := exp]
+   LetStmt class >> parse: stmt [
+      stdout << self class << ': ' << stmt << nl.
+      ^ 'NOT IMPLEMENTED'
+d118 3
+a120 5
+   GotoStmt class >> new: lbl [^ super new init: lbl]
+   init: lbl [label := lbl]
+   GotoStmt class >> parse: stmt [
+      stdout << self class << ': ' << stmt << nl.
+      ^ 'NOT IMPLEMENTED'
+d127 3
+a129 5
+   IfStmt class >> new: exp with: lbl [^ super new init: exp init: lbl]
+   init: exp init: lbl [expr := exp. label := lbl]
+   IfStmt class >> parse: stmt [
+      stdout << self class << ': ' << stmt << nl.
+      ^ 'NOT IMPLEMENTED'
+d138 3
+a140 5
+   InputStmt class >> new: lvals [^ super new init: lvals]
+   init: lvals [lvalues := lvals]
+   InputStmt class >> parse: stmt [
+      stdout << self class << ': ' << stmt << nl.
+      ^ 'NOT IMPLEMENTED'
+d147 6
+a152 4
+   PrintStmt class >> new: printargs [^ super new init: printargs]
+   init: printargs [
+      printables := Array new: printargs size.
+      1 to: printargs size do: [:index|
+d154 2
+a155 2
+         arg := printargs at: index.
+         arg isString ifFalse: [ arg := ExprParser parse: arg].
+a158 4
+   PrintStmt class >> parse: stmt [
+      stdout << self class << ': ' << stmt << nl.
+      ^ 'NOT IMPLEMENTED'
+   ]
+d163 1
+a163 1
+                      ifFalse: [stdout << ' ' << obj].
+d189 1
+a189 1
+      ^ (stmtDict at: stmtSym) parse: stmt
+d195 1
+a195 1
+   |program objects|
+d198 1
+a198 1
+      objects := Array new: program size.
+d200 1
+a200 1
+         |stmt|
+d202 4
+a205 1
+         objects at: index put: (Stmt parse: stmt).
+d210 4
+a213 4
+      stdout << 'Interp objects: [' << nl.
+      1 to: objects size do: [:index|
+         stdout << '   [' << index << ']: '
+                << (objects at: index) << nl.
+d220 1
+a220 1
+      [stmtNr := Stmt getStmtNr. stmtNr <= program size]
+d222 1
+d224 3
+a226 1
+         (objects at: stmtNr) execute.
+a232 1
+   debug := 1. "multiple -d, -dd, -ddd options set debug level"
+d248 1
+a248 1
+   
+d252 1
+a252 1
+         opt = $d ifTrue: [debug := debug + 1].
+d263 1
+a263 1
+         debug > 0 ifTrue: [Main print: program].
+d265 1
+a265 1
+         debug > 0 ifTrue: [interp print].
+@
+
+
+1.4
+log
+@-
+@
+text
+@d2 1
+a2 1
+"$Id: nn-sbint.st,v 1.2 2020-08-29 12:07:12-07 - - $"
+d88 1
+a88 6
+   printOn1: file [
+      |name|
+      name := self class printString
+              copyReplacingRegex: 'Stmt' with: ''.
+      ^ file << '(' << name << ' '
+   ]
+d97 4
+a100 1
+   DimStmt class >> parse: stmt [stdout << self class << ': ' << stmt << nl. ^ 'NOT IMPLEMENTED']
+d108 4
+a111 1
+   LetStmt class >> parse: stmt [stdout << self class << ': ' << stmt << nl. ^ 'NOT IMPLEMENTED']
+d119 4
+a122 1
+   GotoStmt class >> parse: stmt [stdout << self class << ': ' << stmt << nl. ^ 'NOT IMPLEMENTED']
+d130 4
+a133 1
+   IfStmt class >> parse: stmt [stdout << self class << ': ' << stmt << nl. ^ 'NOT IMPLEMENTED']
+d143 4
+a146 1
+   InputStmt class >> parse: stmt [stdout << self class << ': ' << stmt << nl. ^ 'NOT IMPLEMENTED']
+d163 2
+a164 2
+      
+      stdout << self class << ': ' << stmt << nl. ^ 'NOT IMPLEMENTED'
+d183 1
+a183 1
+      stmtDict := Dictionary from: {
+@
+
+
+1.3
+log
+@-
+@
+text
+@d173 1
+a173 1
+   stmtDict := Dictionary from: {
+@
+
+
+1.2
+log
+@-
+@
+text
+@d2 1
+a2 1
+"$Id: nn-sbint.st,v 1.1 2020-08-29 11:40:17-07 - - $"
+a86 2
+   stmtDict := nil.
+   Stmt class >> stmtDict: array [stmtDict := Dictionary from: array]
+a87 6
+   Stmt class >> parse: stmt [
+      |stmtSym|
+      stmt size = 0 ifTrue: [stmtSym := #null]
+                    ifFalse: [stmtSym := stmt at: 1].
+      ^ (stmtDict at: stmtSym) parse: stmt
+   ]
+d172 17
+a188 9
+Stmt stmtDict: {
+   #dim   -> DimStmt.
+   #let   -> LetStmt.
+   #goto  -> GotoStmt.
+   #if    -> IfStmt.
+   #input -> InputStmt.
+   #print -> PrintStmt.
+   #null  -> NullStmt.
+}.
+@
+
+
+1.1
+log
+@-
+@
+text
+@d2 1
+a2 1
+"$Id: oo-sbint.st,v 1.1 2020-08-28 22:37:10-07 - - $"
+d91 4
+a94 8
+      stmt size = 0
+         ifTrue: [^ (stmtDict at: #null) parse: nil]
+         ifFalse: [
+            |obj|
+            obj := stmtDict at: (stmt at: 1).
+            stdout << obj << ': ' << stmt << nl.
+            ^ (stmtDict at: (stmt at: 1)) parse: stmt
+         ].
+d110 1
+a110 1
+   DimStmt class >> parse: stmt [^ 'NOT IMPLEMENTED']
+d118 1
+a118 1
+   LetStmt class >> parse: stmt [^ 'NOT IMPLEMENTED']
+d126 1
+a126 1
+   GotoStmt class >> parse: stmt [^ 'NOT IMPLEMENTED']
+d134 1
+a134 1
+   IfStmt class >> parse: stmt [^ 'NOT IMPLEMENTED']
+d144 1
+a144 1
+   InputStmt class >> parse: stmt [^ 'NOT IMPLEMENTED']
+d160 4
+a163 1
+   PrintStmt class >> parse: stmt [^ 'NOT IMPLEMENTED']
+d193 2
+a194 4
+   Interp class >> new: prog [^ super new init: prog]
+
+   init: prog [
+      program := prog.
+d197 1
+a197 1
+         |stmt cmd|
+d199 1
+a199 2
+         cmd := Stmt parse: stmt.
+         objects at: index put: cmd.
+a215 1
+         |method|
+d217 1
+a217 2
+         method := objects at: stmtNr.
+         method execute.
+@

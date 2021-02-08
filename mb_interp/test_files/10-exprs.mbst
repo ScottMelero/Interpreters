@@ -1,0 +1,26 @@
+Object subclass: Program [
+Program class >> get [
+^ #(
+#( 5 nil #( #let #pi #( #* 4d0 #( #arcTan 1d0))))
+#( 6 nil #( #let #e #( #exp 1d0)))
+#( 8 nil #( #print #( '1+1      = ' #( #+ 1d0 1d0))))
+#( 9 nil #( #print #( '2-2      = ' #( #- 2d0 2d0))))
+#( 10 nil #( #print #( '3*3      = ' #( #* 3d0 3d0))))
+#( 11 nil #( #print #( '4/9      = ' #( #/ 4d0 9d0))))
+#( 12 nil #( #print #( '2^10     = ' #( #raisedTo: 2d0 10d0))))
+#( 13 nil #( #print #( '3*4+5*6  = ' #( #+ #( #* 3d0 4d0) #( #* 5d0 6d0)))))
+#( 15 nil #( #print #( 'log(10)  = ' #( #ln 10d0))))
+#( 16 nil #( #print #( 'sqrt(2)  = ' #( #sqrt 2d0))))
+#( 17 nil #( #print #( 'pi       = ' #pi)))
+#( 18 nil #( #print #( 'e        = ' #e)))
+#( 20 nil #( #print #( '+1/+0    = ' #( #/ 1d0 0d0))))
+#( 21 nil #( #print #( '-1/+0    = ' #( #/ #( #negated 1d0) 0d0))))
+#( 22 nil #( #print #( '+1/-0    = ' #( #/ 1d0 #( #negated 0d0)))))
+#( 23 nil #( #print #( '-1/-0    = ' #( #/ #( #negated 1d0) #( #negated 0d0)))))
+#( 24 nil #( #print #( '+0/+0    = ' #( #/ 0d0 0d0))))
+#( 25 nil #( #print #( '-0/-0    = ' #( #/ #( #negated 0d0) #( #negated 0d0)))))
+#( 26 nil #( #print #( 'sqrt(-1) = ' #( #sqrt #( #negated 1d0)))))
+#( 27 nil #( #print #( 'log(0)   = ' #( #ln 0d0))))
+#( 29 nil #( #print #( '6.02e23  = ' #( #* 6.02d0 #( #raisedTo: 10d0 23d0)))))
+#( 30 nil #( #print #( '(1+2)/7  = ' #( #/ #( #+ 1d0 2d0) 7d0))))
+).]]

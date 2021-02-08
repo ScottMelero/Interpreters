@@ -1,0 +1,357 @@
+head	1.8;
+access;
+symbols;
+locks;
+comment	@# @;
+
+
+1.8
+date	2020.08.27.03.58.43;	author -;	state -;
+branches;
+next	1.7;
+
+1.7
+date	2020.08.27.03.49.04;	author -;	state -;
+branches;
+next	1.6;
+
+1.6
+date	2020.08.26.19.54.43;	author -;	state -;
+branches;
+next	1.5;
+
+1.5
+date	2020.08.26.19.52.24;	author -;	state -;
+branches;
+next	1.4;
+
+1.4
+date	2020.08.26.18.27.19;	author -;	state -;
+branches;
+next	1.3;
+
+1.3
+date	2020.08.23.20.59.02;	author -;	state -;
+branches;
+next	1.2;
+
+1.2
+date	2020.08.23.03.47.19;	author -;	state -;
+branches;
+next	1.1;
+
+1.1
+date	2020.08.20.04.31.16;	author -;	state -;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.8
+log
+@-
+@
+text
+@#!/usr/bin/perl
+# $Id: sb2sbst.perl,v 1.7 2020-08-26 20:49:04-07 - - $
+
+BEGIN {push @@INC, "/afs/cats.ucsc.edu/courses/cse110a-wm/perl5/lib"}
+
+$0 =~ s|.*/||;
+use diagnostics;
+use strict; 
+use warnings;
+
+my $status = 0;
+END {exit $status}
+$SIG{__WARN__} = sub {print STDERR "$0: @@_"; $status = 1};
+$SIG{__DIE__} = sub {warn @@_; exit};
+
+use Data::Dumper;
+use Getopt::Std;
+use Parse::RecDescent;
+
+$Data::Dumper::Indent = 0;
+$Data::Dumper::Terse = 1;
+#$::RD_WARN = 1;
+#$::RD_HINT = 1;
+#$::RD_TRACE = 1;
+
+my %options;
+getopts "g", \%options;
+my $dump_grammar = $options{'g'};
+my $linecount = 0;
+
+sub floatd($) {
+   my ($number) = @@_;
+   $number =~ s/(^|\D)\./${1}0./;
+   $number =~ s/\.($|\D)/.0$1/;
+   $number =~ s/e/d/;
+   $number .= "d0" unless $number =~ m/d/;
+   return $number;
+}
+
+sub string($) {
+   my ($string) = @@_;
+   return "''" if $string eq '""';
+   $string =~ s/""/"/g;
+   $string =~ s/'/''/g;
+   $string =~ s/"(.*)"/'$1'/;
+   return $string;
+}
+
+my %opsub = (qw(
+   !=     ~=
+   ^      raisedTo:
+   acos   arcCos
+   asin   arcSin
+   ceil   ceiling
+   round  rounded
+   log    ln
+   log10  log
+));
+
+sub opsub(@@) {
+   my ($op, @@args) = @@_;
+   my $sub = $opsub{$op};
+   return ($sub ? $sub : $op, @@args);
+}
+
+sub write_syntax_file($$) {
+   my ($sb_fname, $syntax) = @@_;
+   my $syntax_fname = $sb_fname;
+   $syntax_fname =~ s|.*/||;
+   $syntax_fname =~ s/\.[^.]*$//;
+   $syntax_fname .= ".syntax";
+   open my $syntax_file, ">$syntax_fname"
+            or die "$0: $syntax_fname: $!\n";
+   printf $syntax_file "%s\n", Data::Dumper->Dump ([$_]) for @@$syntax;
+   close $syntax_file;
+}
+
+sub flatten($);
+sub flatten($) {
+   my ($stmt) = @@_;
+   my $result = "";
+   for my $item (@@$stmt) {
+      if (ref $item) {
+         $result .= " #(" . (flatten $item) . ")";
+      }else {
+         $item =~ s/^[^\d']/#$&/;
+         $result .= " " . $item;
+      }
+   }
+   return $result;
+}
+
+sub write_sbst_file($$) {
+   my ($sb_fname, $syntax) = @@_;
+   my $sbst_fname = $sb_fname;
+   $sbst_fname =~ s|.*/||;
+   $sbst_fname =~ s/\.[^.]*$//;
+   $sbst_fname .= ".sbst";
+   open my $sbst_file, ">$sbst_fname" or die "$0: $sbst_fname: $!\n";
+   print $sbst_file "Object subclass: Program [\n",
+                    "Program class >> get [\n",
+                    "^ #(\n";
+   for my $line (@@$syntax) {
+      my ($linenr, $label, $stmt)
+         = ($line->[0], $line->[1][0], $line->[2][0]);
+      printf $sbst_file "#( %s %s #(%s))\n", $linenr,
+             $label ? "#$label" : "nil", flatten $stmt
+             if $label || $stmt;
+   }
+   print $sbst_file ").]]\n";
+   close $sbst_file;
+}
+
+my @@grammar = <DATA>;
+if ($dump_grammar) {
+   printf STDERR "%3d: %s", $_, $grammar[$_] for 0..$#grammar;
+}
+my $grammar = join '', @@grammar;
+my $parser = new Parse::RecDescent ($grammar);
+
+push @@ARGV, "-" unless @@ARGV;
+for my $sb_fname (@@ARGV) {
+   open my $sb_file, "<$sb_fname"
+        or warn "$sb_fname: $!" and next;
+   my @@source = <$sb_file>;
+   my $source = join "", @@source;
+   close $sb_file;
+   print "$0: parsing $sb_fname\n";
+   my $syntax = $parser->program ($source)
+              or die "$sb_fname: syntax error\n" and next;
+   #write_syntax_file $sb_fname, $syntax;
+   write_sbst_file $sb_fname, $syntax;
+}
+
+
+__DATA__
+
+<autoaction: {[@@item]}>
+<skip: qr{([ \t]+|#.*)*}>
+
+program   : NL(?) line(s?) NL(s?) EOF  {$item[2]}
+
+line      : label(?) stmt(?) NL        {[$::linecount,@@item[1,2]]}
+
+label     : IDENT ':'                  {$item[1]}
+
+stmt      : 'dim' IDENT '[' expr ']'   {[@@item[1,2,4]]}
+          | 'let' lvalue '=' expr      {[@@item[1,2,4]]}
+          | 'goto' IDENT               {[@@item[1,2]]}
+          | 'if' relexpr 'goto' IDENT  {[@@item[1,2,4]]}
+          | 'print' printable(s? /,/)  {[@@item[1,2]]}
+          | 'input' lvalue(s? /,/)     {[@@item[1,2]]}
+
+printable : /\"([^"\n]|\"\")*\"/       {::string($item[1])}
+          | expr                       {$item[1]}
+
+lvalue    : IDENT '[' expr ']'         {["aput",@@item[1,3]]}
+          | IDENT                      {$item[1]}
+
+relexpr   : expr relop expr            {[::opsub(@@item[2,1,3])]}
+
+expr      : term expr2[$item[1]]                            {$item[2]}
+expr2     : addop term expr2[[$item[1],$arg[0],$item[2]]]   {$item[3]}
+          |                                                 {$arg[0]}
+
+term      : factor term2[$item[1]]                          {$item[2]}
+term2     : mulop factor term2[[$item[1],$arg[0],$item[2]]] {$item[3]}
+          |                                                 {$arg[0]}
+
+factor    : primary '^' factor         {[::opsub(@@item[2,1,3])]}
+          | primary                    {$item[1]}
+
+primary   : '(' expr ')'               {$item[2]}
+          | '+' primary                {$item[2]}
+          | '-' primary                {['negated',$item[2]]}
+          | NUMBER                     {$item[1]}
+          | IDENT '(' expr ')'         {[::opsub(@@item[1,3])]}
+          | rvalue                     {$item[1]}
+
+rvalue    : IDENT '[' expr ']'         {["aget",@@item[1,3]]}
+          | IDENT                      {$item[1]}
+
+relop     : ('='|'!='|'<='|'<'|'>='|'>')     {$item[1][1]}
+addop     : ('+'|'-')                        {$item[1][1]}
+mulop     : ('*'|'/')                        {$item[1][1]}
+
+IDENT     : /[a-z_][a-z_0-9]*/i              {$item[1]}
+NUMBER    : /(\d+\.?\d*|\.\d+)(e[+-]?\d+)?/i {::floatd($item[1])}
+NL        : (/[\n;]/)                        {++$::linecount;'<NL>'}
+EOF       : /^\Z/                            {'<EOF>'}
+
+@
+
+
+1.7
+log
+@-
+@
+text
+@d2 1
+a2 1
+# $Id: sb2sbst.perl,v 1.6 2020-08-26 12:54:43-07 - - $
+d180 1
+a180 1
+rvalue    : IDENT '[' expr ']'         {["asub",@@item[1,3]]}
+@
+
+
+1.6
+log
+@-
+@
+text
+@d2 1
+a2 1
+# $Id: sb2sbst.perl,v 1.5 2020-08-26 12:52:24-07 - - $
+d157 1
+a157 1
+lvalue    : IDENT '[' expr ']'         {["asub",@@item[1,3]]}
+d178 4
+a181 1
+          | lvalue                     {$item[1]}
+@
+
+
+1.5
+log
+@-
+@
+text
+@d2 1
+a2 1
+# $Id: sb2sbst.perl,v 1.4 2020-08-26 11:27:19-07 - - $
+d149 1
+a149 1
+          | 'goto' IDENT               {[@@item[1,2],"nil"]}
+d151 2
+a152 2
+          | 'print' printable(s? /,/)  {[@@item[1,2],"nil"]}
+          | 'input' lvalue(s? /,/)     {[@@item[1,2],"nil"]}
+@
+
+
+1.4
+log
+@-
+@
+text
+@d2 1
+a2 1
+# $Id: sb2sbst.perl,v 1.3 2020-08-23 13:59:02-07 - - $
+d149 1
+a149 1
+          | 'goto' IDENT               {[@@item[1,2]]}
+d151 2
+a152 2
+          | 'print' printable(s? /,/)  {[@@item[1,2]]}
+          | 'input' lvalue(s? /,/)     {[@@item[1,2]]}
+@
+
+
+1.3
+log
+@-
+@
+text
+@d2 1
+a2 1
+# $Id: sb2sbst.perl,v 1.2 2020-08-22 20:47:19-07 - - $
+d101 1
+a101 1
+                    "Program class >> program [\n",
+@
+
+
+1.2
+log
+@-
+@
+text
+@d2 1
+a2 1
+# $Id: sb2sbst.perl,v 1.1 2020-08-19 21:31:16-07 - - $
+a132 1
+   print "$0: $sb_fname: OK\n";
+@
+
+
+1.1
+log
+@-
+@
+text
+@d2 1
+a2 1
+# $Id: sb2sbst.perl,v 1.15 2020-08-19 00:59:31-07 - - $
+d181 1
+a181 1
+relop     : ('='|'~='|'<='|'<'|'>='|'>')     {$item[1][1]}
+@

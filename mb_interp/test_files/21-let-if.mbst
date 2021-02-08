@@ -1,0 +1,8 @@
+Object subclass: Program [
+Program class >> get [
+^ #(
+#( 2 nil #( #let #i 1d0))
+#( 3 #loop #( #print #( #i)))
+#( 4 nil #( #let #i #( #+ #i 1d0)))
+#( 5 nil #( #if #( #<= #i 10d0) #loop))
+).]]

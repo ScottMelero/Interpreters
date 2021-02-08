@@ -1,0 +1,16 @@
+Object subclass: Program [
+Program class >> get [
+^ #(
+#( 2 nil #( #goto #zero))
+#( 3 #four #( #print #( 'four')))
+#( 4 nil #( #goto #done))
+#( 5 #one #( #print #( 'one')))
+#( 6 nil #( #goto #two))
+#( 7 #three #( #print #( 'three')))
+#( 8 nil #( #goto #four))
+#( 9 #two #( #print #( 'two')))
+#( 10 nil #( #goto #three))
+#( 11 #zero #( #print #( 'zero')))
+#( 12 nil #( #goto #one))
+#( 13 #done #())
+).]]

@@ -1,0 +1,16 @@
+Object subclass: Program [
+Program class >> get [
+^ #(
+#( 7 nil #( #input #( #n)))
+#( 8 nil #( #let #i 0d0))
+#( 9 #while #( #print #( #i ': ' #n)))
+#( 10 nil #( #if #( #<= #n 1d0) #done))
+#( 12 nil #( #let #i #( #+ #i 1d0)))
+#( 13 nil #( #let #f #( #floor #( #/ #n 2d0))))
+#( 14 nil #( #if #( #~= #n #( #* #f 2d0)) #odd))
+#( 15 nil #( #let #n #f))
+#( 16 nil #( #goto #while))
+#( 17 #odd #( #let #n #( #+ #( #* #n 3d0) 1d0)))
+#( 18 nil #( #goto #while))
+#( 20 #done #())
+).]]

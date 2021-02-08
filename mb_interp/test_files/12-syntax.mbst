@@ -1,0 +1,12 @@
+Object subclass: Program [
+Program class >> get [
+^ #(
+#( 3 nil #( #goto #label))
+#( 4 nil #( #dim #a 10d0))
+#( 5 nil #( #let #n 6d0))
+#( 6 nil #( #if #( #< 1d0 1d0) #false))
+#( 7 #false #())
+#( 8 nil #( #input #( #x)))
+#( 9 #label #())
+#( 10 nil #( #print #( 'Hello')))
+).]]

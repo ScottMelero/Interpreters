@@ -1,0 +1,15 @@
+Object subclass: Program [
+Program class >> get [
+^ #(
+#( 2 nil #( #print #( 1d0)))
+#( 3 nil #( #print #( 2d0)))
+#( 4 nil #( #print #( 3d0)))
+#( 5 nil #( #print #( 4d0)))
+#( 6 nil #( #print #( 5d0)))
+#( 7 nil #( #print #( 6d0)))
+#( 8 nil #( #print #( 7d0)))
+#( 9 nil #( #print #( 8d0)))
+#( 10 nil #( #print #( 9d0)))
+#( 11 nil #( #print #( 10d0)))
+#( 13 nil #( #print #( #pi #e)))
+).]]
