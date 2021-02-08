@@ -1,0 +1,33 @@
+#!/bin/sh -x
+# $Id: mk.tests,v 1.5 2020-10-23 17:14:35-07 - - $
+
+export PATH=$PATH:/afs/cats.ucsc.edu/courses/cse112-wm/bin
+
+# Don't deduct points for parser.ml and scanner.ml.
+# parser.ml and scanner.ml are generated files.
+
+./mbinterp 00-hello-world.mb  >00-hello-world.log  2>&1
+./mbinterp 01-1to10.mb        >01-1to10.log        2>&1
+./mbinterp 02-exprs.mb        >02-exprs.log        2>&1
+./mbinterp 10-exprs.mb        >10-exprs.log        2>&1
+./mbinterp 11-let.mb          >11-let.log          2>&1
+./mbinterp 12-syntax.mb       >12-syntax.log       2>&1
+./mbinterp 20-goto.mb         >20-goto.log         2>&1
+./mbinterp 21-let-if.mb       >21-let-if.log       2>&1
+./mbinterp 22-fibonacci.mb    >22-fibonacci.log    2>&1
+./mbinterp 23-pi-e-fns.mb     >23-pi-e-fns.log     2>&1
+
+echo 1 0 0   1 1 0   2 2 2 | \
+./mbinterp 30-quadratic.mb    >30-quadratic.log    2>&1
+
+echo 469 | \
+./mbinterp 31-collatz.mb      >31-collatz.log      2>&1
+
+echo 1 42 69 107 |  \
+./mbinterp 32-factorial.mb    >32-factorial.log    2>&1
+
+echo 5 1 4 2 3 10 1024 0 | \
+./mbinterp 40-sort-array.mb   >40-sort-array.log   2>&1
+
+./mbinterp 41-eratosthenes.mb >41-eratosthenes.log 2>&1
+

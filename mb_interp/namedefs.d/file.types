@@ -1,0 +1,48 @@
+HEADER.html:   HTML document, ASCII text
+Listing.pdf:   PDF document, version 1.4
+Listing.ps:    PostScript document text conforming DSC level 3.0
+Makefile:      ASCII text
+Makefile.dep:  ASCII text
+RCS:           directory
+absyn.cmi:     OCaml interface file (.cmi) (Version 026)
+absyn.mli:     ASCII text
+dumper.cmi:    OCaml interface file (.cmi) (Version 026)
+dumper.cmx:    OCaml native object file (.cmx) (Version 026)
+dumper.ml:     ASCII text
+dumper.mli:    ASCII text
+dumper.o:      ELF 64-bit LSB relocatable, x86-64, version 1 (SYSV), not stripp
+etc.cmi:       OCaml interface file (.cmi) (Version 026)
+etc.cmx:       OCaml native object file (.cmx) (Version 026)
+etc.ml:        ASCII text
+etc.mli:       ASCII text
+etc.o:         ELF 64-bit LSB relocatable, x86-64, version 1 (SYSV), not stripp
+interp.cmi:    OCaml interface file (.cmi) (Version 026)
+interp.cmx:    OCaml native object file (.cmx) (Version 026)
+interp.ml:     ASCII text
+interp.mli:    ASCII text
+interp.o:      ELF 64-bit LSB relocatable, x86-64, version 1 (SYSV), not stripp
+main.cmi:      OCaml interface file (.cmi) (Version 026)
+main.cmx:      OCaml native object file (.cmx) (Version 026)
+main.ml:       ASCII text
+main.o:        ELF 64-bit LSB relocatable, x86-64, version 1 (SYSV), not stripp
+mb-programs.d: symbolic link to `/afs/cats.ucsc.edu/courses/cse112-wm/Assignmen
+mbinterp:      ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically
+namedefs.d:    directory
+parser.cmi:    OCaml interface file (.cmi) (Version 026)
+parser.cmx:    OCaml native object file (.cmx) (Version 026)
+parser.ml:     ASCII text
+parser.mli:    ASCII text
+parser.mly:    ASCII text
+parser.o:      ELF 64-bit LSB relocatable, x86-64, version 1 (SYSV), not stripp
+parser.output: ASCII text
+scanner.cmi:   OCaml interface file (.cmi) (Version 026)
+scanner.cmx:   OCaml native object file (.cmx) (Version 026)
+scanner.ml:    ASCII text
+scanner.mll:   ASCII text
+scanner.o:     ELF 64-bit LSB relocatable, x86-64, version 1 (SYSV), not stripp
+tables.cmi:    OCaml interface file (.cmi) (Version 026)
+tables.cmx:    OCaml native object file (.cmx) (Version 026)
+tables.ml:     ASCII text
+tables.mli:    ASCII text
+tables.o:      ELF 64-bit LSB relocatable, x86-64, version 1 (SYSV), not stripp
+using:         ASCII text

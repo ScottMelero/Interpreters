@@ -1,0 +1,138 @@
+head	1.5;
+access;
+symbols;
+locks;
+comment	@# @;
+
+
+1.5
+date	2020.10.22.19.33.57;	author -;	state -;
+branches;
+next	1.4;
+
+1.4
+date	2020.10.22.19.29.24;	author -;	state -;
+branches;
+next	1.3;
+
+1.3
+date	2020.10.22.03.02.38;	author -;	state -;
+branches;
+next	1.2;
+
+1.2
+date	2020.08.17.07.02.07;	author -;	state -;
+branches;
+next	1.1;
+
+1.1
+date	2019.01.24.23.47.38;	author -;	state -;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.5
+log
+@-
+@
+text
+@(* $Id: etc.mli,v 1.3 2020-10-21 20:02:38-07 - - $ *)
+
+(*
+* Main program and system access.
+*)
+
+val warn : string list -> unit
+
+val die : string list -> unit
+
+val syntax_error : Lexing.position -> string list -> unit
+
+val usage_exit : unit -> unit
+
+val read_number : unit -> float
+
+val int_of_round_float : float -> int
+
+@
+
+
+1.4
+log
+@-
+@
+text
+@d1 6
+a6 4
+val execname : string
+val exit_status_ref : int ref
+val quit : unit -> unit
+val eprint_list : string list -> unit
+d8 1
+d10 1
+d12 3
+a14 2
+val usage_exit : 'a -> unit
+val buffer : string list ref
+d16 1
+d18 1
+@
+
+
+1.3
+log
+@-
+@
+text
+@d1 4
+a4 6
+(* $Id: etc.mli,v 1.2 2020-08-17 00:02:07-07 - - $ *)
+
+(*
+* Main program and system access.
+*)
+
+a5 1
+
+a6 1
+
+d8 2
+a9 3
+
+val usage_exit : unit -> unit
+
+a10 1
+
+a11 1
+
+@
+
+
+1.2
+log
+@-
+@
+text
+@d1 1
+a1 1
+(* $Id: etc.mli,v 1.2 2020-01-31 15:23:21-08 - - $ *)
+d13 1
+a13 1
+val usage_exit : string list -> unit
+@
+
+
+1.1
+log
+@-
+@
+text
+@d1 1
+a1 1
+(* $Id: etc.mli,v 1.1 2019-01-18 11:49:38-08 - - $ *)
+d16 2
+@
